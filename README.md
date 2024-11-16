@@ -1,5 +1,4 @@
 # LLMAgents
-The LLM Agents for Android
 LLMAgents致力于搭建Android平台LLM云/端协同大模型架构
 项目架构模块如下
 + LLM
