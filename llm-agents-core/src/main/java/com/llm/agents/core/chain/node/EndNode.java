@@ -36,12 +36,11 @@ public class EndNode extends ChainNode {
 
     @Override
     protected Map<String, Object> execute(Chain chain) {
-        //TODO 实现stop操作
-//        if (normal) {
-//            chain.stopNormal(message);
-//        } else {
-//            chain.stopError(message);
-//        }
+        if (normal) {
+            chain.stopNormal(message);
+        } else {
+            chain.stopError(message);
+        }
         return null;
     }
 }
