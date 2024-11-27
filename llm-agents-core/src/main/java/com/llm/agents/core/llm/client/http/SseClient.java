@@ -43,11 +43,13 @@ public class SseClient extends EventSourceListener implements LlmClient {
         this.config = config;
         this.isStop = false;
 
-        Request.Builder builder = new Request.Builder().url(url);
+        Request.Builder builder = new Request.Builder()
+                .url(url);
 
-        if(headers != null && !headers.isEmpty()){
+        if (headers != null && !headers.isEmpty()) {
             headers.forEach(builder::addHeader);
         }
+
         MediaType mediaType = MediaType.parse("application/json; charset=utf-8");
         RequestBody body = RequestBody.create(payload, mediaType);
         Request request = builder.post(body).build();
@@ -82,6 +84,11 @@ public class SseClient extends EventSourceListener implements LlmClient {
         } finally {
             tryToStop();
         }
+    }
+
+    @Override
+    public void onOpen(@NotNull EventSource eventSource, @NotNull Response response) {
+        //super.onOpen(eventSource, response);
     }
 
     public Throwable getFailureThrowable(Throwable t, Response response) {

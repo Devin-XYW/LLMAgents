@@ -77,7 +77,6 @@ public class QwenLLm extends BaseLlm<QwenLLmConfig> {
             messageResponse.setErrorCode(error.getString("code"));
         }
 
-        //noinspection unchecked
         return (R) messageResponse;
     }
 
