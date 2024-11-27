@@ -1,11 +1,17 @@
 package com.llm.qwen;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
+import com.llm.agents.core.chain.Chain;
+import com.llm.agents.core.chain.ChainEvent;
+import com.llm.agents.core.chain.ChainEventListener;
+import com.llm.agents.core.chain.impl.SequentialChain;
+import com.llm.agents.core.functions.Parameter;
 import com.llm.agents.core.llm.LLM;
 import com.llm.agents.core.message.ai.AiMessage;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -27,5 +33,27 @@ public class ExampleUnitTest {
 //        String chat = llm.chat("你叫什么名字？");
 //        System.out.println(chat);
         Thread.sleep(10000);
+    }
+
+    @Test
+    public void testChain(){
+        SimpleAgent1 agent1 = new SimpleAgent1();
+        SimpleAgent2 agent2 = new SimpleAgent2();
+
+        Chain chain = new SequentialChain();
+        chain.addNode(agent1);
+        chain.addNode(agent2);
+        chain.registerEventListener(new ChainEventListener() {
+            @Override
+            public void onEvent(ChainEvent event, Chain chain) {
+                System.out.println(event);
+            }
+        });
+
+        chain.execute(new HashMap<>());
+
+        for (Map.Entry<String, Object> entry : chain.getMemory().getAll().entrySet()) {
+            System.out.println("执行结果" + entry);
+        }
     }
 }
