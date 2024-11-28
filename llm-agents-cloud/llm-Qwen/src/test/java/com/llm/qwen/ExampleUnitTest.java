@@ -4,6 +4,7 @@ import org.junit.Test;
 import com.llm.agents.core.chain.Chain;
 import com.llm.agents.core.chain.ChainEvent;
 import com.llm.agents.core.chain.ChainEventListener;
+import com.llm.agents.core.chain.ChainException;
 import com.llm.agents.core.chain.impl.SequentialChain;
 import com.llm.agents.core.functions.Parameter;
 import com.llm.agents.core.llm.LLM;
@@ -36,9 +37,9 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testChain(){
-        SimpleAgent1 agent1 = new SimpleAgent1();
-        SimpleAgent2 agent2 = new SimpleAgent2();
+    public void testChain() throws ChainException {
+        SimpleAgent1 agent1 = new SimpleAgent1("agent1");
+        SimpleAgent2 agent2 = new SimpleAgent2("agent2");
 
         Chain chain = new SequentialChain();
         chain.addNode(agent1);
@@ -50,10 +51,7 @@ public class ExampleUnitTest {
             }
         });
 
-        chain.execute(new HashMap<>());
-
-        for (Map.Entry<String, Object> entry : chain.getMemory().getAll().entrySet()) {
-            System.out.println("执行结果" + entry);
-        }
+        Object result = chain.executeForResult("your params");
+        System.out.println(">>>>>" + result);
     }
 }

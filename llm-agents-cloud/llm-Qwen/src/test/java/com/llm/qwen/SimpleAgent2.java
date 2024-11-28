@@ -16,6 +16,7 @@
 package com.llm.qwen;
 
 import com.llm.agents.core.agent.Agent;
+import com.llm.agents.core.agent.DefaultAgent;
 import com.llm.agents.core.agent.Output;
 import com.llm.agents.core.agent.Parameter;
 import com.llm.agents.core.chain.Chain;
@@ -24,16 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleAgent2 extends Agent {
-    @Override
-    public List<Parameter> defineInputParameter() {
-        List<Parameter> parameters = new ArrayList<>();
-        parameters.add(new Parameter("key2", true));
-        return parameters;
+public class SimpleAgent2 extends DefaultAgent {
+    public SimpleAgent2(Object id) {
+        super(id);
     }
 
     @Override
-    public Output execute(Map<String, Object> variables, Chain chain) {
-        return new Output().set("result2", "SimpleAgent2" + variables.get("key2"));
+    public Object execute(Object parameter, Chain chain) {
+        return id + ":" + parameter;
     }
 }

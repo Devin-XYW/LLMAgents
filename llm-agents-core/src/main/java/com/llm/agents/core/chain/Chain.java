@@ -188,26 +188,25 @@ public class Chain extends ChainNode {
     }
 
     protected void runInLifeCycle(Map<String,Object> variables,Runnable runnable){
-        if(variables != null){
+        if (variables != null) {
             this.memory.putAll(variables);
         }
-
-        try{
+        try {
             ChainContext.setChain(this);
             notifyEvent(new OnStartEvent());
-            try{
+            try {
                 setStatus(ChainStatus.RUNNING);
                 runnable.run();
-            }catch (Exception e){
+            } catch (Exception e) {
                 setStatus(ChainStatus.ERROR);
                 notifyEvent(new OnErrorEvent(e));
             }
-            if(status == ChainStatus.RUNNING){
-                setStatus(ChainStatus.ERROR);
-            }else if(status == ChainStatus.ERROR){
+            if (status == ChainStatus.RUNNING) {
+                setStatus(ChainStatus.FINISHED_NORMAL);
+            } else if (status == ChainStatus.ERROR) {
                 setStatus(ChainStatus.FINISHED_ABNORMAL);
             }
-        }finally {
+        } finally {
             ChainContext.clearChain();
             notifyEvent(new OnFinishedEvent());
         }
