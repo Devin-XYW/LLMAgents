@@ -1,5 +1,6 @@
 package com.llm.agents.core.functions;
 
+import com.llm.agents.core.convert.ConvertService;
 import com.llm.agents.core.functions.annotation.FunctionDef;
 import com.llm.agents.core.functions.annotation.FunctionParam;
 
@@ -95,11 +96,10 @@ public class Function {
     public Object invoke(Map<String, Object> argsMap) {
         try {
             Object[] args = new Object[this.parameters.length];
-            //TODO 待实现ConvertService
-//            for (int i = 0; i < this.parameters.length; i++) {
-//                Object value = argsMap.get(this.parameters[i].getName());
-//                args[i] = ConvertService.convert(value, this.parameters[i].getTypeClass());
-//            }
+            for (int i = 0; i < this.parameters.length; i++) {
+                Object value = argsMap.get(this.parameters[i].getName());
+                args[i] = ConvertService.convert(value, this.parameters[i].getTypeClass());
+            }
             return method.invoke(object, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(e);

@@ -19,7 +19,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="请求阿里千问"/>
+        android:text="请求千问对话"/>
+
+    <Button
+        android:id="@+id/qwenFunction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="请求千问Function"/>
 
     <TextView
         android:layout_width="match_parent"

@@ -16,10 +16,13 @@ import com.llm.agents.core.llm.ChatContext;
 import com.llm.agents.core.llm.LLM;
 import com.llm.agents.core.llm.MessageResponse;
 import com.llm.agents.core.llm.StreamResponseListener;
+import com.llm.agents.core.llm.response.FunctionMessageResponse;
 import com.llm.agents.core.message.ai.AiMessage;
+import com.llm.agents.core.prompt.FunctionPrompt;
 import com.llm.agents.core.prompt.Prompt;
 import com.llm.agents.core.prompt.TextPrompt;
 import com.llm.llmagents.R;
+import com.llm.llmagents.function.WeatherUtil;
 import com.llm.qwen.QwenLLm;
 import com.llm.qwen.QwenLLmConfig;
 
@@ -51,6 +54,13 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 queryQwen();
+            }
+        });
+
+        findViewById(R.id.qwenFunction).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                useFunctionQwen();
             }
         });
 
@@ -102,5 +112,31 @@ public class LLMTestActivity extends AppCompatActivity {
         TextPrompt prompt = new TextPrompt(query);
 
         llm.chatStream(prompt,mQwenListener);
+    }
+
+    private void useFunctionQwen(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                QwenLLmConfig config = new QwenLLmConfig();
+                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setModel("qwen-turbo");
+                LLM llm = new QwenLLm(config);
+
+                String query = mEditText.getText().toString();
+
+                FunctionPrompt prompt = new FunctionPrompt(query, WeatherUtil.class);
+                FunctionMessageResponse response = llm.chat( prompt);
+                Log.i(TAG,"useFunctionQwen response="+response);
+                Object result = response.getFunctionResult();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mResultView.setText(result.toString());
+                    }
+                });
+            }
+        }).start();
     }
 }
