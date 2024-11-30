@@ -133,7 +133,11 @@ public class LLMTestActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mResultView.setText(result.toString());
+                        if (result != null){
+                            mResultView.setText(result.toString());
+                        }else {
+                            mResultView.setText("未查询到相关结果");
+                        }
                     }
                 });
             }
