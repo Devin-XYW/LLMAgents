@@ -1,4 +1,4 @@
-package com.llm.llmagents.sub;
+package com.llm.llmagents.llmtest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -19,10 +19,9 @@ import com.llm.agents.core.llm.StreamResponseListener;
 import com.llm.agents.core.llm.response.FunctionMessageResponse;
 import com.llm.agents.core.message.ai.AiMessage;
 import com.llm.agents.core.prompt.FunctionPrompt;
-import com.llm.agents.core.prompt.Prompt;
 import com.llm.agents.core.prompt.TextPrompt;
 import com.llm.llmagents.R;
-import com.llm.llmagents.function.WeatherUtil;
+import com.llm.llmagents.llmtest.function.WeatherUtil;
 import com.llm.qwen.QwenLLm;
 import com.llm.qwen.QwenLLmConfig;
 
