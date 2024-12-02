@@ -28,4 +28,5 @@ dependencyResolutionManagement {
 rootProject.name = "LLMAgents"
 include ':app'
 include ':llm-agents-core'
-include ':llm-agents-cloud:llm-Qwen'
+include ':llm-agents-cloud:llm-qwen'
+include ':llm-agents-cloud:llm-saprk'

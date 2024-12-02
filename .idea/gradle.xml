@@ -13,7 +13,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/llm-agents-cloud" />
-            <option value="$PROJECT_DIR$/llm-agents-cloud/llm-Qwen" />
+            <option value="$PROJECT_DIR$/llm-agents-cloud/llm-qwen" />
+            <option value="$PROJECT_DIR$/llm-agents-cloud/llm-saprk" />
             <option value="$PROJECT_DIR$/llm-agents-core" />
           </set>
         </option>
