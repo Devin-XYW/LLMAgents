@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.LLMAgents"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".llmtest.LLMTestActivity"

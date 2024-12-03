@@ -39,4 +39,5 @@ dependencies {
 
     implementation project(":llm-agents-core")
     implementation project(":llm-agents-cloud:llm-qwen")
+    implementation project(":llm-agents-cloud:llm-saprk")
 }

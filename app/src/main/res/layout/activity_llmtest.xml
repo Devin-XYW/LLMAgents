@@ -18,15 +18,24 @@
         android:id="@+id/qwenQuery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="请求千问对话"/>
+        android:text="请求千问大模型对话"/>
 
     <Button
         android:id="@+id/qwenFunction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="请求千问Function"/>
+        android:text="请求千问大模型Function"/>
+    <Button
+        android:id="@+id/sparkQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求星火大模型对话"/>
+
+    <Button
+        android:id="@+id/sparkFunction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求星火大模型Function"/>
 
     <TextView
         android:layout_width="match_parent"
