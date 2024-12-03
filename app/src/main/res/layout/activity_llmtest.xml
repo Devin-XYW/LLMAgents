@@ -37,6 +37,18 @@
         android:layout_height="wrap_content"
         android:text="请求星火大模型Function"/>
 
+    <Button
+        android:id="@+id/chatglmQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求智谱大模型对话"/>
+
+    <Button
+        android:id="@+id/chatglmFunction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求智谱大模型Function"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

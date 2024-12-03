@@ -20,6 +20,8 @@ import com.llm.agents.core.llm.response.FunctionMessageResponse;
 import com.llm.agents.core.message.ai.AiMessage;
 import com.llm.agents.core.prompt.FunctionPrompt;
 import com.llm.agents.core.prompt.TextPrompt;
+import com.llm.chatglm.ChatglmLlm;
+import com.llm.chatglm.ChatglmLlmConfig;
 import com.llm.llmagents.R;
 import com.llm.llmagents.llmtest.function.WeatherUtil;
 import com.llm.qwen.QwenLLm;
@@ -79,6 +81,20 @@ public class LLMTestActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.chatglmQuery).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                queryChatglm();
+            }
+        });
+
+        findViewById(R.id.chatglmFunction).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                useFunctionChatglm();
+            }
+        });
+
     }
 
     private StreamResponseListener mListener = new StreamResponseListener() {
@@ -119,7 +135,7 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void queryQwen(){
         QwenLLmConfig config = new QwenLLmConfig();
-        config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+        config.setApiKey("**********");
         config.setModel("qwen-turbo");
         LLM llm = new QwenLLm(config);
 
@@ -134,7 +150,7 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setApiKey("*******");
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 
@@ -161,9 +177,9 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void querySpark(){
         SparkLlmConfig config = new SparkLlmConfig();
-        config.setAppId("b6b080da");
-        config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
-        config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
+        config.setAppId("***");
+        config.setApiKey("*");
+        config.setApiSecret("*");
 
         LLM llm = new SparkLlm(config);
 
@@ -179,11 +195,54 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SparkLlmConfig config = new SparkLlmConfig();
-                config.setAppId("b6b080da");
-                config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
-                config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
+                config.setAppId("*");
+                config.setApiKey("*");
+                config.setApiSecret("*");
 
                 LLM llm = new SparkLlm(config);
+
+                String query = mEditText.getText().toString();
+
+                FunctionPrompt prompt = new FunctionPrompt(query, WeatherUtil.class);
+                FunctionMessageResponse response = llm.chat( prompt);
+                Log.i(TAG,"useFunctionQwen response="+response);
+                Object result = response.getFunctionResult();
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result != null){
+                            mResultView.setText(result.toString());
+                        }else {
+                            mResultView.setText("未查询到相关结果");
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void queryChatglm(){
+        ChatglmLlmConfig config = new ChatglmLlmConfig();
+        config.setApiKey("**");
+
+        LLM llm = new ChatglmLlm(config);
+
+        String query = mEditText.getText().toString();
+        TextPrompt prompt = new TextPrompt(query);
+
+        llm.chatStream(prompt, mListener);
+
+    }
+
+    private void useFunctionChatglm(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ChatglmLlmConfig config = new ChatglmLlmConfig();
+                config.setApiKey("**");
+
+                LLM llm = new ChatglmLlm(config);
 
                 String query = mEditText.getText().toString();
 
