@@ -14,22 +14,53 @@
         android:gravity="top"
         android:hint="请输入内容"/>
 
-    <Button
-        android:id="@+id/qwenQuery"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="请求千问大模型对话"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/qwenQuery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求千问：流式"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/qwenQueryHttp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求千问：非流式"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/qwenFunction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="请求千问大模型Function"/>
-    <Button
-        android:id="@+id/sparkQuery"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="请求星火大模型对话"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/sparkQuery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求星火：流式"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/sparkQueryHttp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求星火：非流式"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/sparkFunction"
@@ -37,11 +68,26 @@
         android:layout_height="wrap_content"
         android:text="请求星火大模型Function"/>
 
-    <Button
-        android:id="@+id/chatglmQuery"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="请求智谱大模型对话"/>
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/chatglmQuery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求智谱：流式"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/chatglmQueryHttp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求星火：非流式"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/chatglmFunction"

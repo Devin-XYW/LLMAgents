@@ -16,6 +16,7 @@ import com.llm.agents.core.llm.ChatContext;
 import com.llm.agents.core.llm.LLM;
 import com.llm.agents.core.llm.MessageResponse;
 import com.llm.agents.core.llm.StreamResponseListener;
+import com.llm.agents.core.llm.response.AiMessageResponse;
 import com.llm.agents.core.llm.response.FunctionMessageResponse;
 import com.llm.agents.core.message.ai.AiMessage;
 import com.llm.agents.core.prompt.FunctionPrompt;
@@ -60,6 +61,13 @@ public class LLMTestActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.qwenQueryHttp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                queryQwenHttp();
+            }
+        });
+
         findViewById(R.id.qwenFunction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +79,12 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 querySpark();
+            }
+        });
+        findViewById(R.id.sparkQueryHttp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                querySparkHttp();
             }
         });
 
@@ -85,6 +99,13 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 queryChatglm();
+            }
+        });
+
+        findViewById(R.id.chatglmQueryHttp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                queryChatglmHttp();
             }
         });
 
@@ -135,7 +156,7 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void queryQwen(){
         QwenLLmConfig config = new QwenLLmConfig();
-        config.setApiKey("**********");
+        config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
         config.setModel("qwen-turbo");
         LLM llm = new QwenLLm(config);
 
@@ -145,12 +166,39 @@ public class LLMTestActivity extends AppCompatActivity {
         llm.chatStream(prompt, mListener);
     }
 
+    private void queryQwenHttp(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                QwenLLmConfig config = new QwenLLmConfig();
+                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setModel("qwen-turbo");
+                LLM llm = new QwenLLm(config);
+
+                String query = mEditText.getText().toString();
+                TextPrompt prompt = new TextPrompt(query);
+
+                AiMessageResponse result = llm.chat(prompt);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result != null){
+                            mResultView.setText(result.toString());
+                        }else {
+                            mResultView.setText("未查询到相关结果");
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
     private void useFunctionQwen(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("*******");
+                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 
@@ -177,9 +225,9 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void querySpark(){
         SparkLlmConfig config = new SparkLlmConfig();
-        config.setAppId("***");
-        config.setApiKey("*");
-        config.setApiSecret("*");
+        config.setAppId("b6b080da");
+        config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
+        config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
 
         LLM llm = new SparkLlm(config);
 
@@ -190,14 +238,43 @@ public class LLMTestActivity extends AppCompatActivity {
 
     }
 
+    private void querySparkHttp(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SparkLlmConfig config = new SparkLlmConfig();
+                config.setAppId("b6b080da");
+                config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
+                config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
+
+                LLM llm = new SparkLlm(config);
+
+                String query = mEditText.getText().toString();
+                TextPrompt prompt = new TextPrompt(query);
+
+                AiMessageResponse result = llm.chat(prompt);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result != null){
+                            mResultView.setText(result.toString());
+                        }else {
+                            mResultView.setText("未查询到相关结果");
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
     private void useFunctionSpark(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 SparkLlmConfig config = new SparkLlmConfig();
-                config.setAppId("*");
-                config.setApiKey("*");
-                config.setApiSecret("*");
+                config.setAppId("b6b080da");
+                config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
+                config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
 
                 LLM llm = new SparkLlm(config);
 
@@ -224,7 +301,7 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void queryChatglm(){
         ChatglmLlmConfig config = new ChatglmLlmConfig();
-        config.setApiKey("**");
+        config.setApiKey("475e2cecbc8912f3d0c2f87ca87a0410.2qBCDIxlpN9xHSfY");
 
         LLM llm = new ChatglmLlm(config);
 
@@ -235,12 +312,39 @@ public class LLMTestActivity extends AppCompatActivity {
 
     }
 
+    private void queryChatglmHttp(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ChatglmLlmConfig config = new ChatglmLlmConfig();
+                config.setApiKey("475e2cecbc8912f3d0c2f87ca87a0410.2qBCDIxlpN9xHSfY");
+
+                LLM llm = new ChatglmLlm(config);
+
+                String query = mEditText.getText().toString();
+                TextPrompt prompt = new TextPrompt(query);
+
+                AiMessageResponse result = llm.chat(prompt);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result != null){
+                            mResultView.setText(result.toString());
+                        }else {
+                            mResultView.setText("未查询到相关结果");
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
     private void useFunctionChatglm(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 ChatglmLlmConfig config = new ChatglmLlmConfig();
-                config.setApiKey("**");
+                config.setApiKey("475e2cecbc8912f3d0c2f87ca87a0410.2qBCDIxlpN9xHSfY");
 
                 LLM llm = new ChatglmLlm(config);
 
