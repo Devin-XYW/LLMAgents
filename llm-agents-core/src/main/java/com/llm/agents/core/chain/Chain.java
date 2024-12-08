@@ -251,7 +251,9 @@ public class Chain extends ChainNode {
     private Map<String,Object> executeNode(ChainNode currentNode){
         Map<String, Object> executeResult = null;
         if (currentNode.isAsync()) {
-            asyncNodeExecutors.execute(() -> currentNode.execute(Chain.this));
+            asyncNodeExecutors.execute(() ->
+                    currentNode.execute(Chain.this)
+            );
         } else {
             executeResult = currentNode.execute(this);
         }

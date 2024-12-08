@@ -1,4 +1,4 @@
-package com.llm.llmagents.agenttest.agent;
+package com.llm.llmagents.agenttest.agent.sqlAgent;
 
 import com.llm.agents.core.agent.LLMAgent;
 import com.llm.agents.core.agent.Output;

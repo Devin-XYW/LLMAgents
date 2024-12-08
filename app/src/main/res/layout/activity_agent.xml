@@ -17,15 +17,22 @@
         android:id="@+id/sqlAgentTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="测试SQLTableAgent"/>
+        android:layout_marginTop="5dp"
+        android:text="测试SQLTableAgent-单Agent"/>
 
     <Button
         android:id="@+id/sqlAgentChainTest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="测试SQLCodeAgent"/>
+        android:layout_marginTop="5dp"
+        android:text="测试SQLCodeAgent-顺序Chain"/>
+
+    <Button
+        android:id="@+id/chatAgentTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="测试chatAgent-并行链"/>
 
     <TextView
         android:layout_width="match_parent"

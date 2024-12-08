@@ -17,11 +17,13 @@ import com.llm.agents.core.chain.Chain;
 import com.llm.agents.core.chain.ChainEvent;
 import com.llm.agents.core.chain.ChainEventListener;
 import com.llm.agents.core.chain.ChainOutputListener;
+import com.llm.agents.core.chain.impl.ParallelChain;
 import com.llm.agents.core.chain.impl.SequentialChain;
 import com.llm.agents.core.llm.LLM;
 import com.llm.llmagents.R;
-import com.llm.llmagents.agenttest.agent.SQLCodeLlmAgent;
-import com.llm.llmagents.agenttest.agent.SQLTableLlmAgent;
+import com.llm.llmagents.agenttest.agent.llmAgent.ChatLLmAgent;
+import com.llm.llmagents.agenttest.agent.sqlAgent.SQLCodeLlmAgent;
+import com.llm.llmagents.agenttest.agent.sqlAgent.SQLTableLlmAgent;
 import com.llm.qwen.QwenLLm;
 import com.llm.qwen.QwenLLmConfig;
 
@@ -61,6 +63,13 @@ public class AgentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 testSQLAgentChain();
+            }
+        });
+
+        findViewById(R.id.chatAgentTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                syncChatAgentChain();
             }
         });
     }
@@ -156,6 +165,59 @@ public class AgentActivity extends AppCompatActivity {
             }
         }).start();
 
+    }
+
+    private void syncChatAgentChain(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                QwenLLmConfig config = new QwenLLmConfig();
+                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setModel("qwen-turbo");
+                LLM llm = new QwenLLm(config);
+
+                ChatLLmAgent agent1 = new ChatLLmAgent(llm);
+                ChatLLmAgent agent2 = new ChatLLmAgent(llm);
+
+                ParallelChain parallelChain = new ParallelChain();
+                parallelChain.addNode(agent1);
+                parallelChain.addNode(agent2);
+
+                Map<String, Object> variables = new HashMap<>();
+                variables.put("askText", mEditText.getText().toString());
+
+                parallelChain.registerEventListener(new ChainEventListener() {
+                    @Override
+                    public void onEvent(ChainEvent event, Chain chain) {
+                        Log.i(TAG,"testSQLAgentChain onEvent="+event);
+                    }
+                });
+                StringBuilder result = new StringBuilder();
+
+                parallelChain.registerOutputListener(new ChainOutputListener() {
+                    @Override
+                    public void onOutput(Chain chain, Agent onOutput, Object outputMessage) {
+                        Log.i(TAG,"testSQLAgentChain onOutput="+onOutput+",outputMessage="+outputMessage);
+                        result.append(outputMessage.toString());
+                        result.append("\n");
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (result != null){
+                                    mResultView.setText(result);
+                                }else {
+                                    mResultView.setText("未查询到相关结果");
+                                }
+                            }
+                        });
+                    }
+                });
+
+                parallelChain.execute(variables);
+
+
+            }
+        }).start();
     }
 
 }
