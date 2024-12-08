@@ -11,12 +11,15 @@ import java.util.Set;
 /**
  * @Author Devin
  * @Date 2024/11/17 13:40
- * @Description:
+ * @Description: 文本Prompt配置器，其中处理Prompt的参数字符串拼接
  **/
 public class TextPromptTemplate implements PromptTemplate<TextPrompt> {
 
+    //存放当前可变参数的key值
     private final Set<String> keys = new HashSet<>();
 
+    //将当前配置的Prompt字段将描述、可变参数对象进行区分存放
+    //使用{}进行标识可变参数内容
     private final List<String> parts = new ArrayList<String>(){
         @Override
         public boolean add(String query) {
@@ -28,11 +31,17 @@ public class TextPromptTemplate implements PromptTemplate<TextPrompt> {
         }
     };
 
+    /**
+     * 构造函数，其中将Prompt中文本描述和可变参数key值进行区分存放
+     * 可变参数key值使用{}进行标识
+     * @param template
+     */
     public TextPromptTemplate(String template){
         boolean isCurrentInKeyword = false;
         StringBuilder keyword = null;
         StringBuilder content = null;
 
+        //遍历当前Prompt中字段，提取Prompt中的可变参数key字段
         for(int index=0;index < template.length();index++){
             char c = template.charAt(index);
             if(c == '{' && !isCurrentInKeyword){
@@ -80,8 +89,14 @@ public class TextPromptTemplate implements PromptTemplate<TextPrompt> {
         return new TextPromptTemplate(template);
     }
 
+    /**
+     * Prompt参数匹配&拼接方法
+     * @param params：外部传入的Prompt参数值
+     * @return 拼接好的Prompt字段
+     */
     public TextPrompt format(Map<String, Object> params) {
         StringBuilder result = new StringBuilder();
+        //遍历
         for (String part : parts) {
             if (part.charAt(0) == '{' && part.charAt(part.length() - 1) == '}') {
                 if (part.length() > 2) {

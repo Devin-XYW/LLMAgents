@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @Author Devin
  * @Date 2024/11/24 16:20
- * @Description:
+ * @Description: 默认Agent对象，不包含LLM大模型引擎，不调用大模型能力
  **/
 public abstract class DefaultAgent extends Agent{
 

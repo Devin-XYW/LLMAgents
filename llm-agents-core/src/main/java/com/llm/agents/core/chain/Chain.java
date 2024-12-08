@@ -19,18 +19,19 @@ import java.util.concurrent.ExecutorService;
 /**
  * @Author Devin
  * @Date 2024/11/19 22:53
- * @Description:
+ * @Description: Chain执行链
  **/
 public class Chain extends ChainNode {
-    public static final String CTX_EXEC_COUNT = "_exec_count";
-    protected Map<Class<?>, List<ChainEventListener>> eventListeners = new HashMap<>(0);
-    protected List<ChainOutputListener> outputListeners = new ArrayList<>();
-    protected List<ChainNode> nodes;
+    public static final String CTX_EXEC_COUNT = "_exec_count"; //当前Chain中执行次数
+    protected Map<Class<?>, List<ChainEventListener>> eventListeners = new HashMap<>(0); //事件回调监听对象
+    protected List<ChainOutputListener> outputListeners = new ArrayList<>(); //结果回调监听对象
+    protected List<ChainNode> nodes; //Chain中执行结点list
     protected List<ChainEdge> edges;
-    protected ChainStatus status = ChainStatus.READY;
-    protected String message;
-    protected Chain parent;
-    protected List<Chain> children;
+    protected ChainStatus status = ChainStatus.READY; //当前Chain中事件标识
+    protected String message; //执行相关的message提示描述字段
+    protected Chain parent; //父链
+    protected List<Chain> children;//子链
+    //执行线程池
     protected ExecutorService asyncNodeExecutors = NamedThreadPools.newFixedThreadPool("chain-executor");
 
     public Chain(){

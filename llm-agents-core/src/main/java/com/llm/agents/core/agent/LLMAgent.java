@@ -16,14 +16,14 @@ import java.util.Set;
 /**
  * @Author Devin
  * @Date 2024/11/24 16:21
- * @Description:
+ * @Description: 大模型LLMAgent，其中包含大模型引擎，调用大模型能力
  **/
 public class LLMAgent extends Agent{
 
-    protected LLM llm;
-    protected ChatOptions chatOptions = ChatOptions.DEFAULT;
-    protected String prompt;
-    protected TextPromptTemplate promptTemplate;
+    protected LLM llm;//Agent中的LLM大模型引擎
+    protected ChatOptions chatOptions = ChatOptions.DEFAULT; //大模型配置config选项
+    protected String prompt; //Prompt字段
+    protected TextPromptTemplate promptTemplate; //Prompt配置器
 
     public LLMAgent(){
 
@@ -84,9 +84,12 @@ public class LLMAgent extends Agent{
 
     @Override
     public Output execute(Map<String, Object> variables, Chain chain) {
+        //将Prompt可变参数进行拼接
         TextPrompt textPrompt = promptTemplate.format(variables);
+        //调用大模型引擎获取结果response
         AiMessageResponse response = llm.chat(textPrompt,chatOptions);
 
+        //将response结果存放到chain中
         if(chain != null){
             chain.output(this,response);
         }

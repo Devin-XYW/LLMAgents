@@ -8,16 +8,16 @@ import java.util.*;
 /**
  * @Author Devin
  * @Date 2024/11/19 23:27
- * @Description:
+ * @Description: Agent抽象类
  **/
 public abstract class Agent {
 
-    protected Object id;
-    protected String name;
-    protected String description;
-    private ContextMemory memory;
-    private List<Parameter> inputParameters;
-    private List<OutputKey> outputKeys;
+    protected Object id; // Agent Id标识，用于在chain中的区分
+    protected String name; //Agent名标识
+    protected String description;//Agent描述文本字段
+    private ContextMemory memory;//Agent记忆上下文，通常存储对话记录
+    private List<Parameter> inputParameters;//Agent输入参数对象
+    private List<OutputKey> outputKeys; //Agent输出结果字段对象
 
     public Agent() {
         this.id = UUID.randomUUID().toString();
@@ -98,6 +98,7 @@ public abstract class Agent {
         return this;
     }
 
+    //Agent引擎执行方法
     public Output execute(Map<String, Object> variables) {
         return execute(variables, null);
     }

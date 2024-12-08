@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.llm.agents.core.agent.Agent;
 import com.llm.agents.core.agent.Output;
 import com.llm.agents.core.chain.Chain;
 import com.llm.agents.core.chain.ChainEvent;
 import com.llm.agents.core.chain.ChainEventListener;
+import com.llm.agents.core.chain.ChainOutputListener;
 import com.llm.agents.core.chain.impl.SequentialChain;
 import com.llm.agents.core.llm.LLM;
 import com.llm.llmagents.R;
@@ -128,6 +130,13 @@ public class AgentActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(ChainEvent event, Chain chain) {
                         Log.i(TAG,"testSQLAgentChain onEvent="+event);
+                    }
+                });
+
+                chain.registerOutputListener(new ChainOutputListener() {
+                    @Override
+                    public void onOutput(Chain chain, Agent onOutput, Object outputMessage) {
+                        Log.i(TAG,"testSQLAgentChain onOutput="+onOutput+",outputMessage="+outputMessage);
                     }
                 });
 

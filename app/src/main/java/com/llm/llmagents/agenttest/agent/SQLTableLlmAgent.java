@@ -13,6 +13,7 @@ import com.llm.agents.core.prompt.template.TextPromptTemplate;
  **/
 public class SQLTableLlmAgent extends LLMAgent {
 
+    //用于标识结果key字段
     public static final String resultKey = "tableInfo";
 
     public SQLTableLlmAgent(LLM llm){

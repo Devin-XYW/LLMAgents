@@ -15,11 +15,11 @@ import java.util.Map;
 /**
  * @Author Devin
  * @Date 2024/11/21 22:47
- * @Description:
+ * @Description: Agent结点封装类
  **/
 public class AgentNode extends ChainNode {
 
-    private Agent agent;
+    private Agent agent; //Agent可执行对象
     private Map<String,String> outputMapping;
 
     public AgentNode() {
@@ -65,7 +65,7 @@ public class AgentNode extends ChainNode {
         List<Parameter> inputParameters = agent.getInputParameters();
 
         if (inputParameters.isEmpty()) {
-            //Agent 未定义输入参数
+            //Agent 未定义输入参数：从memory中进行获取参数
             variables.putAll(chain.getMemory().getAll());
         }else {
             // Agent 定义了固定的输入参数

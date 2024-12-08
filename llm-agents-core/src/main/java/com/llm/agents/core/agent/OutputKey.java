@@ -3,7 +3,7 @@ package com.llm.agents.core.agent;
 /**
  * @Author Devin
  * @Date 2024/11/21 22:54
- * @Description:
+ * @Description: Agent输出结果字段对象
  **/
 public class OutputKey {
     private String key;

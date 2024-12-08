@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * @Author Devin
  * @Date 2024/11/17 12:44
- * @Description:
+ * @Description: 上下文记忆
  **/
 public interface ContextMemory extends Memory{
     Object get(String key);

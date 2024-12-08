@@ -7,7 +7,7 @@ import com.llm.agents.core.chain.ChainNode;
 /**
  * @Author Devin
  * @Date 2024/11/24 15:58
- * @Description:
+ * @Description: 顺序链
  **/
 public class SequentialChain extends Chain {
 

@@ -9,7 +9,7 @@ import com.llm.agents.core.chain.node.StartNode;
 /**
  * @Author Devin
  * @Date 2024/11/24 16:00
- * @Description:
+ * @Description: 循环链
  **/
 public class LoopChain extends SequentialChain{
     private int maxLoopCount = Integer.MAX_VALUE;

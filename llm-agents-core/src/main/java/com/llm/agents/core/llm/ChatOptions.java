@@ -9,7 +9,7 @@ import java.util.List;
  **/
 public class ChatOptions {
     private String seed;
-    private Float temperature= 0.8f;
+    private Float temperature= 0.8f; //大模型随机度，默认0.8
     private Float topP;
     private Integer topK;
     private Integer maxTokens;

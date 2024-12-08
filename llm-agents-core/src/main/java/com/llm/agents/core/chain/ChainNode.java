@@ -11,20 +11,20 @@ import java.util.Map;
 /**
  * @Author Devin
  * @Date 2024/11/19 23:03
- * @Description:
+ * @Description: Chain结点类型，Chain中的可执行单元节点
  **/
 public abstract class ChainNode implements Serializable {
 
     protected String id;
     protected String name;
-    protected boolean async;
+    protected boolean async; //标识当前结点是否异步执行
     protected List<ChainEdge> inwardEdges;
     protected List<ChainEdge> outwardEdges;
 
-    protected ChainCondition condition;
+    protected ChainCondition condition; //当前结点执行条件
 
-    protected ContextMemory memory = new DefaultContextMemory();
-    protected ChainNodeStatus nodeStatus = ChainNodeStatus.READY;
+    protected ContextMemory memory = new DefaultContextMemory(); //结点上下文记忆内容字段
+    protected ChainNodeStatus nodeStatus = ChainNodeStatus.READY; //当前结点状态
 
     public String getId() {
         return id;

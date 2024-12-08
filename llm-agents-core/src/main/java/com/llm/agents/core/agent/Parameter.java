@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @Author Devin
  * @Date 2024/11/21 22:57
- * @Description:
+ * @Description: Agent参数对象
  **/
 public class Parameter {
     private String name;

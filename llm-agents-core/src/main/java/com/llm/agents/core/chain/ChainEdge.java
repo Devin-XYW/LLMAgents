@@ -3,7 +3,7 @@ package com.llm.agents.core.chain;
 /**
  * @Author Devin
  * @Date 2024/11/19 23:01
- * @Description:
+ * @Description: 边缘结点，记录当前Chain链的前后边缘结点
  **/
 public class ChainEdge {
     private String source;

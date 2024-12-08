@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @Author Devin
  * @Date 2024/11/21 22:45
- * @Description:
+ * @Description: 结束结点
  **/
 public class EndNode extends ChainNode {
     private boolean normal = true;

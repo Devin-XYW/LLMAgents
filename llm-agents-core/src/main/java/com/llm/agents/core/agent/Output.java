@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @Author Devin
  * @Date 2024/11/21 22:55
- * @Description:
+ * @Description: Agent输出结果Map对象
  **/
 public class Output extends HashMap<String, Object> {
     public static final String DEFAULT_VALUE_KEY = "default";
