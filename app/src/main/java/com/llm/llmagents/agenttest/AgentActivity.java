@@ -24,6 +24,7 @@ import com.llm.llmagents.R;
 import com.llm.llmagents.agenttest.agent.llmAgent.ChatLLmAgent;
 import com.llm.llmagents.agenttest.agent.sqlAgent.SQLCodeLlmAgent;
 import com.llm.llmagents.agenttest.agent.sqlAgent.SQLTableLlmAgent;
+import com.llm.llmagents.util.KeyUtil;
 import com.llm.qwen.QwenLLm;
 import com.llm.qwen.QwenLLmConfig;
 
@@ -79,7 +80,7 @@ public class AgentActivity extends AppCompatActivity {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 
@@ -115,7 +116,7 @@ public class AgentActivity extends AppCompatActivity {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 
@@ -172,7 +173,7 @@ public class AgentActivity extends AppCompatActivity {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 

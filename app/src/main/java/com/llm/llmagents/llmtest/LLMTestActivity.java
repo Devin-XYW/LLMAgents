@@ -25,6 +25,8 @@ import com.llm.chatglm.ChatglmLlm;
 import com.llm.chatglm.ChatglmLlmConfig;
 import com.llm.llmagents.R;
 import com.llm.llmagents.llmtest.function.WeatherUtil;
+import com.llm.llmagents.util.KeyUtil;
+import com.llm.llmagents.util.PermissionUtils;
 import com.llm.qwen.QwenLLm;
 import com.llm.qwen.QwenLLmConfig;
 import com.llm.saprk.SparkLlm;
@@ -43,6 +45,8 @@ public class LLMTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_llmtest);
+
+        PermissionUtils.requestReadExternalStoragePermission(this);
 
         mEditText = findViewById(R.id.queryEdit);
         mQueryQwen = findViewById(R.id.qwenQuery);
@@ -156,7 +160,7 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void queryQwen(){
         QwenLLmConfig config = new QwenLLmConfig();
-        config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+        config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
         config.setModel("qwen-turbo");
         LLM llm = new QwenLLm(config);
 
@@ -171,7 +175,7 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 
@@ -198,7 +202,7 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 QwenLLmConfig config = new QwenLLmConfig();
-                config.setApiKey("sk-3b52d74fcbc94c9191311e0678a826af");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
                 config.setModel("qwen-turbo");
                 LLM llm = new QwenLLm(config);
 
@@ -225,9 +229,9 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void querySpark(){
         SparkLlmConfig config = new SparkLlmConfig();
-        config.setAppId("b6b080da");
-        config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
-        config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
+        config.setAppId(KeyUtil.getInstance().getKeyObject().keys.get("spark").appId);
+        config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("spark").apiKey);
+        config.setApiSecret(KeyUtil.getInstance().getKeyObject().keys.get("spark").apiSecret);
 
         LLM llm = new SparkLlm(config);
 
@@ -243,9 +247,9 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SparkLlmConfig config = new SparkLlmConfig();
-                config.setAppId("b6b080da");
-                config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
-                config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
+                config.setAppId(KeyUtil.getInstance().getKeyObject().keys.get("spark").appId);
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("spark").apiKey);
+                config.setApiSecret(KeyUtil.getInstance().getKeyObject().keys.get("spark").apiSecret);
 
                 LLM llm = new SparkLlm(config);
 
@@ -272,9 +276,9 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SparkLlmConfig config = new SparkLlmConfig();
-                config.setAppId("b6b080da");
-                config.setApiKey("b0a8911be4f0da5973efc6c9990088fd");
-                config.setApiSecret("ZDM3OThlMTZiOGFmMGZlNGM3OTcyMDE5");
+                config.setAppId(KeyUtil.getInstance().getKeyObject().keys.get("spark").appId);
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("spark").apiKey);
+                config.setApiSecret(KeyUtil.getInstance().getKeyObject().keys.get("spark").apiSecret);
 
                 LLM llm = new SparkLlm(config);
 
@@ -301,7 +305,7 @@ public class LLMTestActivity extends AppCompatActivity {
 
     private void queryChatglm(){
         ChatglmLlmConfig config = new ChatglmLlmConfig();
-        config.setApiKey("475e2cecbc8912f3d0c2f87ca87a0410.2qBCDIxlpN9xHSfY");
+        config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("chatglm").apiKey);
 
         LLM llm = new ChatglmLlm(config);
 
@@ -317,7 +321,7 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 ChatglmLlmConfig config = new ChatglmLlmConfig();
-                config.setApiKey("475e2cecbc8912f3d0c2f87ca87a0410.2qBCDIxlpN9xHSfY");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("chatglm").apiKey);
 
                 LLM llm = new ChatglmLlm(config);
 
@@ -344,7 +348,7 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void run() {
                 ChatglmLlmConfig config = new ChatglmLlmConfig();
-                config.setApiKey("475e2cecbc8912f3d0c2f87ca87a0410.2qBCDIxlpN9xHSfY");
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("chatglm").apiKey);
 
                 LLM llm = new ChatglmLlm(config);
 
