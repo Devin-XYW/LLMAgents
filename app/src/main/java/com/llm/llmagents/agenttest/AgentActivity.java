@@ -3,6 +3,7 @@ package com.llm.llmagents.agenttest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.opengl.GLDebugHelper;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -53,6 +54,13 @@ public class AgentActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        findViewById(R.id.chatTest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                testChatGptAgent();
+            }
+        });
+
         findViewById(R.id.sqlAgentTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +83,42 @@ public class AgentActivity extends AppCompatActivity {
         });
     }
 
+    private void testChatGptAgent(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                QwenLLmConfig config = new QwenLLmConfig();
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("qwen").apiKey);
+                config.setModel("qwen-turbo");
+                LLM llm = new QwenLLm(config);
+
+                ChatLLmAgent chatLLmAgent = new ChatLLmAgent(llm);
+                Map<String, Object> variables = new HashMap<>();
+                variables.put("askText", mEditText.getText().toString());
+
+                SequentialChain chain = new SequentialChain();
+                chain.addNode(chatLLmAgent);
+
+                chain.registerOutputListener(new ChainOutputListener() {
+                    @Override
+                    public void onOutput(Chain chain, Agent agent, Object outputMessage) {
+                        String result = outputMessage.toString();
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mResultView.setText(result);
+                            }
+                        });
+                    }
+                });
+
+                chain.execute(variables);
+
+            }
+        }).start();
+
+    }
+
     private void testSQLAgent(){
         new Thread(new Runnable() {
             @Override
@@ -95,7 +139,7 @@ public class AgentActivity extends AppCompatActivity {
 
                 Output output = agent.execute(variables, null);
 
-                String result = output.getValue().toString();
+                String result = output.get(SQLTableLlmAgent.resultKey).toString();
 
                 handler.post(new Runnable() {
                     @Override
