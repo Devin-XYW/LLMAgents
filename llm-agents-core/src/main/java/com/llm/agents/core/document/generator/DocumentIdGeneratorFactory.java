@@ -28,6 +28,10 @@ public abstract class DocumentIdGeneratorFactory {
         DocumentIdGeneratorFactory.factory = factory;
     }
 
+    public static DocumentIdGenerator getDocumentIdGenerator() {
+        return factory.createGenerator();
+    }
+
     abstract DocumentIdGenerator createGenerator();
 
 }
