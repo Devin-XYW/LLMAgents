@@ -17,6 +17,8 @@
             <option value="$PROJECT_DIR$/llm-agents-cloud/llm-qwen" />
             <option value="$PROJECT_DIR$/llm-agents-cloud/llm-saprk" />
             <option value="$PROJECT_DIR$/llm-agents-core" />
+            <option value="$PROJECT_DIR$/llm-agents-tools" />
+            <option value="$PROJECT_DIR$/llm-agents-tools/llm-doc-parser" />
           </set>
         </option>
       </GradleProjectSettings>
