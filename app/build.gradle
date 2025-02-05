@@ -41,4 +41,5 @@ dependencies {
     implementation project(":llm-agents-cloud:llm-qwen")
     implementation project(":llm-agents-cloud:llm-saprk")
     implementation project(":llm-agents-cloud:llm-chatglm")
+    //implementation project(":llm-agents-tools:llm-doc-parser")
 }

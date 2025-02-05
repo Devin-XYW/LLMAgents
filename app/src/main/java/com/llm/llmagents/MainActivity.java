@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.llm.llmagents.agenttest.AgentActivity;
 import com.llm.llmagents.llmtest.LLMTestActivity;
+import com.llm.llmagents.toolstest.ToolsTestActivity;
 import com.llm.llmagents.util.PermissionUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AgentActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        findViewById(R.id.tools).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ToolsTestActivity.class);
                 startActivity(intent);
             }
         });
