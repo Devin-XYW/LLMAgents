@@ -1,19 +1,17 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
-    namespace 'com.llm.llmagents'
+    namespace 'com.llm.deepseek'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.llm.llmagents"
         minSdk 29
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -30,17 +28,9 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation project(":llm-agents-core")
-    implementation project(":llm-agents-cloud:llm-qwen")
-    implementation project(":llm-agents-cloud:llm-saprk")
-    implementation project(":llm-agents-cloud:llm-chatglm")
-    implementation project(":llm-agents-cloud:llm-deepseek")
-    //implementation project(":llm-agents-tools:llm-doc-parser")
 }

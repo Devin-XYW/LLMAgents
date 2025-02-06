@@ -23,6 +23,8 @@ import com.llm.agents.core.prompt.FunctionPrompt;
 import com.llm.agents.core.prompt.TextPrompt;
 import com.llm.chatglm.ChatglmLlm;
 import com.llm.chatglm.ChatglmLlmConfig;
+import com.llm.deepseek.DeepSeekLLm;
+import com.llm.deepseek.DeepSeekLLmConfig;
 import com.llm.llmagents.R;
 import com.llm.llmagents.llmtest.function.WeatherUtil;
 import com.llm.llmagents.util.KeyUtil;
@@ -117,6 +119,20 @@ public class LLMTestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 useFunctionChatglm();
+            }
+        });
+
+        findViewById(R.id.deepSeekQuery).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                queryDeepSeekLLm();
+            }
+        });
+
+        findViewById(R.id.deepSeekQueryHttp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                queryDeepSeekLLmHttp();
             }
         });
 
@@ -359,6 +375,46 @@ public class LLMTestActivity extends AppCompatActivity {
                 Log.i(TAG,"useFunctionQwen response="+response);
                 Object result = response.getFunctionResult();
 
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (result != null){
+                            mResultView.setText(result.toString());
+                        }else {
+                            mResultView.setText("未查询到相关结果");
+                        }
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private void queryDeepSeekLLm(){
+        DeepSeekLLmConfig config = new DeepSeekLLmConfig();
+        config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("deepseek").apiKey);
+
+        LLM llm = new DeepSeekLLm(config);
+
+        String query = mEditText.getText().toString();
+        TextPrompt prompt = new TextPrompt(query);
+
+        llm.chatStream(prompt, mListener);
+
+    }
+
+    private void queryDeepSeekLLmHttp(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DeepSeekLLmConfig config = new DeepSeekLLmConfig();
+                config.setApiKey(KeyUtil.getInstance().getKeyObject().keys.get("deepseek").apiKey);
+
+                LLM llm = new DeepSeekLLm(config);
+
+                String query = mEditText.getText().toString();
+                TextPrompt prompt = new TextPrompt(query);
+
+                AiMessageResponse result = llm.chat(prompt);
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

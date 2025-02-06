@@ -83,7 +83,7 @@
             android:id="@+id/chatglmQueryHttp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="请求星火：非流式"
+            android:text="请求智谱：非流式"
             android:layout_marginStart="5dp"
             android:layout_weight="1"/>
 
@@ -94,6 +94,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="请求智谱大模型Function"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/deepSeekQuery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求DeepSeek:流式"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/deepSeekQueryHttp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="请求DeepSeek:非流式"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/deepSeekFunction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求DeepSeek大模型Function"/>
 
     <TextView
         android:layout_width="match_parent"
