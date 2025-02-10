@@ -1,5 +1,6 @@
 package com.llm.agents.core.chain.event;
 
+import com.llm.agents.core.chain.Chain;
 import com.llm.agents.core.chain.ChainEvent;
 import com.llm.agents.core.chain.ChainNode;
 
@@ -10,12 +11,13 @@ import java.util.Map;
  * @Date 2024/11/24 15:14
  * @Description:
  **/
-public class OnNodeFinishedEvent implements ChainEvent {
+public class OnNodeEndEvent extends BaseChainEvent {
 
     private ChainNode node;
     private Map<String,Object> result;
 
-    public OnNodeFinishedEvent(ChainNode node, Map<String, Object> result) {
+    public OnNodeEndEvent(Chain chain, ChainNode node, Map<String, Object> result) {
+        super(chain);
         this.node = node;
         this.result = result;
     }

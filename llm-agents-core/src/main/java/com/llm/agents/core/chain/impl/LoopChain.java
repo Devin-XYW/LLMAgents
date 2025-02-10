@@ -3,7 +3,7 @@ package com.llm.agents.core.chain.impl;
 import com.llm.agents.core.chain.ChainEdge;
 import com.llm.agents.core.chain.ChainEvent;
 import com.llm.agents.core.chain.ChainNode;
-import com.llm.agents.core.chain.event.OnNodeFinishedEvent;
+import com.llm.agents.core.chain.event.OnNodeEndEvent;
 import com.llm.agents.core.chain.node.StartNode;
 
 /**
@@ -44,8 +44,8 @@ public class LoopChain extends SequentialChain{
     @Override
     public void notifyEvent(ChainEvent event) {
         super.notifyEvent(event);
-        if (event instanceof OnNodeFinishedEvent){
-            ChainNode node = ((OnNodeFinishedEvent) event).getNode();
+        if (event instanceof OnNodeEndEvent){
+            ChainNode node = ((OnNodeEndEvent) event).getNode();
             Integer exeCount = (Integer) node.getMemory().get(CTX_EXEC_COUNT);
             if (exeCount != null && exeCount > maxLoopCount){
                 stopNormal("Loop to the maxLoopCount limit");

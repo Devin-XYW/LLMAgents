@@ -3,10 +3,10 @@ package com.llm.agents.core.chain;
 import com.llm.agents.core.agent.Agent;
 import com.llm.agents.core.agent.Output;
 import com.llm.agents.core.chain.event.OnErrorEvent;
-import com.llm.agents.core.chain.event.OnFinishedEvent;
-import com.llm.agents.core.chain.event.OnNodeFinishedEvent;
+import com.llm.agents.core.chain.event.OnChainEndEvent;
+import com.llm.agents.core.chain.event.OnNodeEndEvent;
 import com.llm.agents.core.chain.event.OnNodeStartEvent;
-import com.llm.agents.core.chain.event.OnStartEvent;
+import com.llm.agents.core.chain.event.OnChainStartEvent;
 import com.llm.agents.core.chain.event.OnStatusChangeEvent;
 import com.llm.agents.core.chain.node.AgentNode;
 import com.llm.agents.core.util.CollectionUtil;
@@ -133,7 +133,7 @@ public class Chain extends ChainNode {
         this.status = status;
 
         if (before != status) {
-            notifyEvent(new OnStatusChangeEvent(this.status, before));
+            notifyEvent(new OnStatusChangeEvent(this,this.status, before));
         }
     }
 
@@ -194,13 +194,13 @@ public class Chain extends ChainNode {
         }
         try {
             ChainContext.setChain(this);
-            notifyEvent(new OnStartEvent());
+            notifyEvent(new OnChainStartEvent(this));
             try {
                 setStatus(ChainStatus.RUNNING);
                 runnable.run();
             } catch (Exception e) {
                 setStatus(ChainStatus.ERROR);
-                notifyEvent(new OnErrorEvent(e));
+                notifyEvent(new OnErrorEvent(this,e));
             }
             if (status == ChainStatus.RUNNING) {
                 setStatus(ChainStatus.FINISHED_NORMAL);
@@ -209,7 +209,7 @@ public class Chain extends ChainNode {
             }
         } finally {
             ChainContext.clearChain();
-            notifyEvent(new OnFinishedEvent());
+            notifyEvent(new OnChainEndEvent(this));
         }
     }
 
@@ -276,7 +276,7 @@ public class Chain extends ChainNode {
             Map<String, Object> executeResult = null;
             try{
                 ChainContext.setNode(currentNode);
-                notifyEvent(new OnNodeStartEvent(currentNode));
+                notifyEvent(new OnNodeStartEvent(this,currentNode));
                 if (this.getStatus() != ChainStatus.RUNNING) {
                     break;
                 }
@@ -284,7 +284,7 @@ public class Chain extends ChainNode {
             }finally {
                 ChainContext.clearNode();
                 currentNode.getMemory().put(CTX_EXEC_COUNT, execCount + 1);
-                notifyEvent(new OnNodeFinishedEvent(currentNode, executeResult));
+                notifyEvent(new OnNodeEndEvent(this,currentNode, executeResult));
             }
 
             if(executeResult != null && !executeResult.isEmpty()){
