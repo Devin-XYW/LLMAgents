@@ -1,6 +1,6 @@
 package com.llm.agents.core.chain.event;
 
-import com.llm.agents.core.chain.ChainEvent;
+import com.llm.agents.core.chain.Chain;
 import com.llm.agents.core.chain.ChainNode;
 
 /**
@@ -8,11 +8,12 @@ import com.llm.agents.core.chain.ChainNode;
  * @Date 2024/11/24 15:16
  * @Description:
  **/
-public class OnNodeStartEvent implements ChainEvent {
+public class OnNodeStartEvent extends BaseChainEvent {
 
     private ChainNode node;
 
-    public OnNodeStartEvent(ChainNode node) {
+    public OnNodeStartEvent(Chain chain, ChainNode node) {
+        super(chain);
         this.node = node;
     }
 

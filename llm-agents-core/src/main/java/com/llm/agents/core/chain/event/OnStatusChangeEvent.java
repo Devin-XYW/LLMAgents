@@ -1,6 +1,6 @@
 package com.llm.agents.core.chain.event;
 
-import com.llm.agents.core.chain.ChainEvent;
+import com.llm.agents.core.chain.Chain;
 import com.llm.agents.core.chain.ChainStatus;
 
 /**
@@ -8,11 +8,12 @@ import com.llm.agents.core.chain.ChainStatus;
  * @Date 2024/11/24 15:17
  * @Description:
  **/
-public class OnStatusChangeEvent implements ChainEvent {
+public class OnStatusChangeEvent extends BaseChainEvent {
     private ChainStatus status;
     private ChainStatus before;
 
-    public OnStatusChangeEvent(ChainStatus status, ChainStatus before) {
+    public OnStatusChangeEvent(Chain chain, ChainStatus status, ChainStatus before) {
+        super(chain);
         this.status = status;
         this.before = before;
     }

@@ -1,16 +1,17 @@
 package com.llm.agents.core.chain.event;
 
-import com.llm.agents.core.chain.ChainEvent;
+import com.llm.agents.core.chain.Chain;
 
 /**
  * @Author Devin
  * @Date 2024/11/24 15:10
  * @Description:
  **/
-public class OnErrorEvent implements ChainEvent {
+public class OnErrorEvent extends BaseChainEvent {
     private Exception exception;
 
-    public OnErrorEvent(Exception exception) {
+    public OnErrorEvent(Chain chain, Exception exception) {
+        super(chain);
         this.exception = exception;
     }
 
