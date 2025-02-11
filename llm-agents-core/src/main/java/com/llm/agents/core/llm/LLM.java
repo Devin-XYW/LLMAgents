@@ -1,6 +1,6 @@
 package com.llm.agents.core.llm;
 
-import com.llm.agents.core.exception.LlmException;
+import com.llm.agents.core.util.exception.LlmException;
 import com.llm.agents.core.llm.response.AbstractBaseMessageResponse;
 import com.llm.agents.core.llm.response.AiMessageResponse;
 import com.llm.agents.core.message.ai.AiMessage;

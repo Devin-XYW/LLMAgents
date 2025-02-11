@@ -3,7 +3,7 @@ package com.llm.agents.core.llm.client.http;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.llm.agents.core.exception.LlmException;
+import com.llm.agents.core.util.exception.LlmException;
 import com.llm.agents.core.llm.LlmConfig;
 import com.llm.agents.core.llm.client.LlmClient;
 import com.llm.agents.core.llm.client.LlmClientListener;

@@ -2,7 +2,6 @@ package com.llm.chatglm;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPath;
 import com.llm.agents.core.llm.BaseLlm;
 import com.llm.agents.core.llm.ChatOptions;
 import com.llm.agents.core.llm.MessageResponse;
@@ -15,8 +14,8 @@ import com.llm.agents.core.llm.client.http.SseClient;
 import com.llm.agents.core.llm.response.AbstractBaseMessageResponse;
 import com.llm.agents.core.llm.response.AiMessageResponse;
 import com.llm.agents.core.llm.response.FunctionMessageResponse;
-import com.llm.agents.core.parser.AiMessageParser;
-import com.llm.agents.core.parser.FunctionMessageParser;
+import com.llm.agents.core.message.parser.AiMessageParser;
+import com.llm.agents.core.message.parser.FunctionMessageParser;
 import com.llm.agents.core.prompt.FunctionPrompt;
 import com.llm.agents.core.prompt.Prompt;
 import com.llm.agents.core.util.StringUtil;

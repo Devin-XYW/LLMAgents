@@ -1,6 +1,6 @@
 package com.llm.agents.core.functions;
 
-import com.llm.agents.core.convert.ConvertService;
+import com.llm.agents.core.chain.convert.ConvertService;
 import com.llm.agents.core.functions.annotation.FunctionDef;
 import com.llm.agents.core.functions.annotation.FunctionParam;
 
